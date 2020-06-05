@@ -1,66 +1,152 @@
 import React, { Component } from "react";
-import axios from "axios";
 import GifCard from "./GifCard";
-
 class SearchField extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-        title: [],
-        GIFurl: [],
+        selectValue: '',
+        keyword: '',
+        limit: '',
+        rating: '',
+        tag: '',
+        send: false,
     };
   }
 
-  componentDidMount() {
-    //const search = this.props.search;
-    const API_KEY = "VDw7hEA1dQuT1rV7K1Nr6l6z8EmwGdCD";
-    //const regSearch = 'http://api.giphy.com/v1/gifs/search?q=${search}&api_key=${API_KEY}';
-    //const Search = 'http://api.giphy.com/v1/gifs/search?q=' + this.props.search + '&api_key=' + API_KEY
-    const trendSearch = 'http://api.giphy.com/v1/gifs/trending?api_key=' + API_KEY;
-    //const randSearch = 'http://api.giphy.com/v1/gifs/random?api_key=${API_KEY}';
 
+  handleSelectChange = (event) => {
+    this.setState({ 
+      selectValue: event.target.value, 
+      keyword: '',
+      limit: '',
+      rating: '',
+      tag: '',
+      send: false,
+    });
+  };
 
+  handleKeyWordChange = (event) => {
+    this.setState({ keyword: event.target.value });
+  };
 
-    axios
-      .get(trendSearch)
-      .then((response) => {
+  handleLimitChange = (event) => {
+    this.setState({ limit: event.target.value });
+  };
 
-        const data = response.data.data;
-        //console.log(data[0]);
-        let titles = [];
-        let GIFsUrl = [];
-        for(let i=0; i<data.length; i++){
-            titles.push(data[i].title);
-            GIFsUrl.push(data[i].images.original.url);
-        }
- 
-        //console.log(titles.length);
-       // console.log(GIFsUrl.length);
+  handleRatingChange = (event) => {
+    this.setState({ rating: event.target.value });
+  };
 
+  handleTagChange = (event) => {
+    this.setState({ tag: event.target.value });
+  };
 
-        this.setState({ 
-            title: titles,
-            GIFurl: GIFsUrl,
-         });
-      })
-      .catch((err) => console.log(err));
-    }
+  handleSearch = () => {
+    this.setState({ send: true });
+  };
 
-    // inputSearch = (event) => {
-    //   this.setState({ 
-    //     search: event.target.value,
-    //     filterBy: "regular"
-    //   });
-    // }
 
     render() {
+      let filter;
+      //console.log(this.state.selectValue);
+      if(this.state.selectValue === "Regular"){
+        filter = (
+          <>
+            <label for="KeyWord">Key Word: </label>
+            <input
+              type="text"
+              name="KeyWord"
+              value={this.state.keyword}
+              onChange={this.handleKeyWordChange}
+            />
+            <br/>
+            <label for="Limit">Number of GIFS: </label>
+            <input
+              type="text"
+              name="Limit"
+              value={this.state.limit}
+              onChange={this.handleLimitChange}
+            />
+            <br/>
+            <label for="Rating">Choose a search method:</label>
+            <select name="Rating" value={this.state.rating} onChange={this.handleRatingChange}>
+                <option value="">--Select A Rank--</option>
+                <option value="G">G</option>
+                <option value="PG">PG</option>
+                <option value="PG-13">PG-13</option>
+                <option value="R">R</option>
+            </select>
+          </>
+        );
+      }
+      else if(this.state.selectValue === "Random"){
+        filter = (
+          <>
+            <label for="Tag">Filters results by specified tag: </label>
+            <input
+              type="text"
+              name="Tag"
+              value={this.state.tag}
+              onChange={this.handleTagChange}
+            />
+            <br/>
+            <label for="Rating">Choose a search method:</label>
+            <select name="Rating" value={this.state.rating} onChange={this.handleRatingChange}>
+                <option value="">--Select A Rank--</option>
+                <option value="G">G</option>
+                <option value="PG">PG</option>
+                <option value="PG-13">PG-13</option>
+                <option value="R">R</option>
+            </select>
+          </>
+        );
+      }
+      else if(this.state.selectValue === "Trending"){
+        filter = (
+          <>
+            <label for="Limit">Number of GIFS: </label>
+            <input
+              type="text"
+              name="Limit"
+              value={this.state.limit}
+              onChange={this.handleLimitChange}
+            />
+            <br/>
+            <label for="Rating">Choose a search method:</label>
+            <select name="Rating" value={this.state.rating} onChange={this.handleRatingChange}>
+                <option value="">--Select A Rank--</option>
+                <option value="G">G</option>
+                <option value="PG">PG</option>
+                <option value="PG-13">PG-13</option>
+                <option value="R">R</option>
+            </select>
+          </>
+        );
+      }
       
   
       return (
         <>
         <div className="SearchField">
-
-        <GifCard titles={this.state.title} urls={this.state.GIFurl} />
+            <label for="Search methods">Choose a search method:</label>
+            <select name="Search methods" value={this.state.selectValue} onChange={this.handleSelectChange}>
+                <option value="">--Select A Method--</option>
+                <option value="Regular">Regular Search</option>
+                <option value="Trending">Trending Search</option>
+                <option value="Random">Random Search</option>
+            </select>
+            <button onClick = {this.handleSearch}>Search</button>
+            <br/>
+            {filter}
+            {this.state.send ?  
+              <GifCard 
+                search_method ={this.state.selectValue}
+                search_keyword = {this.state.keyword}
+                search_number = {this.state.limit}
+                search_rank = {this.state.rating}
+                search_tag = {this.state.tag} 
+              />  :
+             <GifCard />}
         </div>
         </>
       );
