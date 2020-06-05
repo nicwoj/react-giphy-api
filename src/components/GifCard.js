@@ -1,17 +1,13 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class GifCard extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     let display;
     if (this.props.result) {
       display = this.props.result.map((e) => {
         return (
           <>
-            {" "}
+            {' '}
             <h3>{e.title}</h3>
             <img src={e.imageUrl} alt={e.title} />
           </>

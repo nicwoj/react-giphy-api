@@ -1,15 +1,19 @@
-import React, { Component } from "react";
-import axios from "axios";
-import GifCard from "./GifCard";
+import React, { Component } from 'react';
+import axios from 'axios';
+import GifCard from './GifCard';
 
 class SearchField extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: "",
+      search: '',
       result: [],
-      filterBy: "", //regular, trending, random
+      filterBy: '', //regular, trending, random
     };
+  }
+
+  componentDidMount() {
+    this.setState({ filterBy: 'trending' }, this.getGiphy);
   }
 
   getGiphy = () => {
@@ -19,9 +23,9 @@ class SearchField extends Component {
     let regSearch; // URL to send to API
 
     // Filtering through state.filterBy to send correct URL
-    if (this.state.filterBy === "search") {
+    if (this.state.filterBy === 'search') {
       regSearch = `http://api.giphy.com/v1/gifs/search?q=${this.state.search}&api_key=${API_KEY}`;
-    } else if (this.state.filterBy === "trending") {
+    } else if (this.state.filterBy === 'trending') {
       regSearch = `http://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}`;
     } else {
       regSearch = `http://api.giphy.com/v1/gifs/random?api_key=${API_KEY}`;
@@ -33,13 +37,13 @@ class SearchField extends Component {
         let data = response.data;
         let newGif, currentGif;
         currentGif = []; // Array to hold the response from API
-        if (this.state.filterBy === "random") {
+        if (this.state.filterBy === 'random') {
           /* The random URL returns one object while the search and 
           trending return an array of objects, so we push that one object 
           into an array to keep the response as an array through 
           the whole program*/
           currentGif.push(data.data);
-          console.log("ok....", data);
+          console.log('ok....', data);
         } else {
           // Pushing each object to currentGif array
           data.data.map((e) => {
@@ -76,17 +80,17 @@ class SearchField extends Component {
       <>
         <div>
           <input
-            type="textarea"
+            type='textarea'
             onChange={this.setSearch}
             value={this.state.search}
           />
-          <button onClick={this.setFilterBy} value="search">
+          <button onClick={this.setFilterBy} value='search'>
             Regular Search
           </button>
-          <button onClick={this.setFilterBy} value="trending">
+          <button onClick={this.setFilterBy} value='trending'>
             Trending Search
           </button>
-          <button onClick={this.setFilterBy} value="random">
+          <button onClick={this.setFilterBy} value='random'>
             Random Search
           </button>
         </div>
