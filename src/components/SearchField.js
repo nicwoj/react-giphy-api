@@ -14,6 +14,9 @@ class SearchField extends Component {
   constructor(props) {
     super(props);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 71bbda767e95984fa71a278aa5424c3e21d550ea
     this.state = {
       search: "",
       result: [],
@@ -109,6 +112,7 @@ class SearchField extends Component {
   }
 }
 
+<<<<<<< HEAD
 export default SearchField;
 =======
     this.state = { 
@@ -175,3 +179,6 @@ export default SearchField;
 
 export default SearchField;
 >>>>>>> c850cabcfa13fc718f06ee05b768d3603f106bfa
+=======
+export default SearchField;
+>>>>>>> 71bbda767e95984fa71a278aa5424c3e21d550ea

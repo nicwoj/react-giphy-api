@@ -3,12 +3,15 @@ import React, { Component } from "react";
 class GifCard extends Component {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   constructor(props) {
     super(props);
   }
 
 =======
 >>>>>>> fixedSearchFunc
+=======
+>>>>>>> 71bbda767e95984fa71a278aa5424c3e21d550ea
   render() {
     let display;
     if (this.props.result) {
@@ -25,6 +28,7 @@ class GifCard extends Component {
       display = <p>Loading...</p>;
     }
     return (
+<<<<<<< HEAD
 <<<<<<< HEAD
       <div>
         
@@ -64,6 +68,8 @@ class GifCard extends Component {
 >>>>>>> c850cabcfa13fc718f06ee05b768d3603f106bfa
       </div>
 =======
+=======
+>>>>>>> 71bbda767e95984fa71a278aa5424c3e21d550ea
       <>
         <h1>{this.props.filterBy.toString().toUpperCase()}</h1>
         <div>{display}</div>
@@ -77,4 +83,8 @@ class GifCard extends Component {
 export default GifCard;
 =======
 export default GifCard;
+<<<<<<< HEAD
 >>>>>>> c850cabcfa13fc718f06ee05b768d3603f106bfa
+=======
+
+>>>>>>> 71bbda767e95984fa71a278aa5424c3e21d550ea
