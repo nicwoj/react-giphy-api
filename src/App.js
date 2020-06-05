@@ -7,7 +7,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>GIPHY Search</h1>
-        <SearchField search="test" />
+        <SearchField />
       </div>
     );
   }
