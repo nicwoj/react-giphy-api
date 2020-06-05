@@ -26,3 +26,4 @@ class GifCard extends Component {
 }
 
 export default GifCard;
+
